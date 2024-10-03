@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Escribe algo</title>
+</head>
+<body>
+    <h1>Escribe algo aquí:</h1>
+    <form id="form">
+        <textarea id="inputText" placeholder="Escribe algo..."></textarea><br><br>
+        <button type="submit">Enviar</button>
+    </form>
+
+    <script>
+        document.getElementById("form").addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const texto = document.getElementById("inputText").value;
+            const response = await fetch("/api/guardar", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ texto }),
+            });
+            const data = await response.json();
+            alert(data.message);
+        });
+    </script>
+</body>
+</html>
